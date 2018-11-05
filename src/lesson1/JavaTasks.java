@@ -1,5 +1,5 @@
 package lesson1;
-
+import kotlin.NotImplementedError;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -84,7 +84,7 @@ public class JavaTasks {
      *
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortAddresses(String inputName, String outputName)  {}
+    static public void sortAddresses(String inputName, String outputName)  { throw new NotImplementedError();}
 
     /**
      * Сортировка температур
@@ -117,6 +117,7 @@ public class JavaTasks {
      * 121.3
      */
     static public void sortTemperatures(String inputName, String outputName) {
+        throw new NotImplementedError();
     }
 
     /**
@@ -148,7 +149,7 @@ public class JavaTasks {
      * 2
      * 2
      */
-    static public void sortSequence(String inputName, String outputName) {
+    static public void sortSequence(String inputName, String outputName) { throw new NotImplementedError();
     }
 
     /**

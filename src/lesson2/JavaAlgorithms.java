@@ -1,5 +1,6 @@
 package lesson2;
 
+import kotlin.NotImplementedError;
 import kotlin.Pair;
 
 import java.util.Set;
@@ -30,7 +31,7 @@ public class JavaAlgorithms {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
-       return null;
+        throw new NotImplementedError();
     }
     /**
      * Задача Иосифа Флафия.
@@ -171,5 +172,5 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-    static public Set<String> baldaSearcher(String inputName, Set<String> words) { return null;}
-}
+    static public Set<String> baldaSearcher(String inputName, Set<String> words) {  throw new NotImplementedError();}
+};

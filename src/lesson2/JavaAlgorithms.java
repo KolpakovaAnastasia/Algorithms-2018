@@ -1,9 +1,9 @@
 package lesson2;
 
-import kotlin.NotImplementedError;
-import kotlin.Pair;
 
-import java.util.Set;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.*;
 
 @SuppressWarnings("unused")
 public class JavaAlgorithms {
@@ -31,9 +31,7 @@ public class JavaAlgorithms {
      *
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
-        throw new NotImplementedError();
-    }
+    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) { throw new NotImplementedError(); }
 
     /**
      * Задача Иосифа Флафия.
@@ -82,9 +80,13 @@ public class JavaAlgorithms {
      * Х х Х
      */
     static public int josephTask(int menNumber, int choiceInterval) {
-        throw new NotImplementedError();
+        if (menNumber == 0) throw new IllegalArgumentException("Quantity of men should be > null");
+        int res = 0;
+        for (int i = 0; i < menNumber; ++i) {
+            res = (res + choiceInterval) % (i + 1);
+        }
+        return res + 1;
     }
-
     /**
      * Наибольшая общая подстрока.
      * Средняя
@@ -96,8 +98,23 @@ public class JavaAlgorithms {
      * Если имеется несколько самых длинных общих подстрок одной длины,
      * вернуть ту из них, которая встречается раньше в строке first.
      */
-    static public String longestCommonSubstring(String firs, String second) {
-        throw new NotImplementedError();
+    static public String longestCommonSubstring(String first, String second) {
+        int[][] array = new int[first.length()][second.length()];
+        int maxLength = 0;
+        int maxIndex = -1;
+        for (int i = 1; i < first.length(); i++) {
+            for (int j = 1; j < second.length(); j++) {
+                if (first.charAt(i - 1) == second.charAt(j - 1)) {
+                    int currentLength = array[i - 1][j - 1] + 1;
+                    array[i][j] = currentLength;
+                    if (currentLength > maxLength) {
+                        maxLength = currentLength;
+                        maxIndex = i;
+                    }
+                }
+            }
+        }
+        return (maxIndex == -1) ? "" : first.substring(maxIndex - maxLength, maxIndex);
     }
 
     /**
@@ -111,9 +128,24 @@ public class JavaAlgorithms {
      * Единица простым числом не считается.
      */
     static public int calcPrimesNumber(int limit) {
-        throw new NotImplementedError();
+        if (limit <= 1) return 0;
+        boolean primes[] = new boolean[limit + 1];
+        primes[0] = false;
+        primes[1] = false;
+        int sqrt = (int) Math.floor(Math.sqrt(limit));
+        for (int num = 2; num <= sqrt; num++) {
+            if (primes[num]) {
+                for (int i = num * num; i <= limit; i += num) {
+                    primes[i] = false;
+                }
+            }
+        }
+        int res = 0;
+        for (boolean num : primes) {
+            if (num) res++;
+        }
+        return res;
     }
-
     /**
      * Балда
      * Сложная
@@ -140,7 +172,6 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-    static public Set<String> baldaSearcher(String inputName, Set<String> words) {
-        throw new NotImplementedError();
+    static public Set<String> baldaSearcher(String inputName, Set<String> words) { throw new NotImplementedError();
     }
 }

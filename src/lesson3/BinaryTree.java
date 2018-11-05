@@ -1,9 +1,5 @@
 package lesson3;
 
-import kotlin.NotImplementedError;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.*;
 
 // Attention: comparable supported but comparator is not

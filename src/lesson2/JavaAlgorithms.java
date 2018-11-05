@@ -1,6 +1,6 @@
 package lesson2;
 
-import javafx.util.Pair;
+import kotlin.Pair;
 
 import java.util.Set;
 @SuppressWarnings("unused")

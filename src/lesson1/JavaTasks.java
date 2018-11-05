@@ -1,6 +1,8 @@
 package lesson1;
 
-import kotlin.NotImplementedError;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 @SuppressWarnings("unused")
 public class JavaTasks {
@@ -32,8 +34,29 @@ public class JavaTasks {
      *
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortTimes(String inputName, String outputName) {
-        throw new NotImplementedError();
+    static public void sortTimes(String inputName, String outputName) throws IOException {
+
+        File input = new File(inputName);
+        File output = new File(outputName);
+        ArrayList<String> times = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(input))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.matches("^(([0-1]\\d)|(2[0-3])):[0-5]\\d:[0-5]\\d\n?$")) {
+                    times.add(line);
+                } else throw new IllegalArgumentException("Incorrect format");
+            }
+        }
+
+        Collections.sort(times);
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(output))) {
+            for (String time : times) {
+                writer.append(time).append("\n");
+            }
+        }
+
     }
 
     /**
@@ -63,7 +86,7 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     static public void sortAddresses(String inputName, String outputName) {
-        throw new NotImplementedError();
+
     }
 
     /**
@@ -97,7 +120,7 @@ public class JavaTasks {
      * 121.3
      */
     static public void sortTemperatures(String inputName, String outputName) {
-        throw new NotImplementedError();
+
     }
 
     /**
@@ -130,7 +153,6 @@ public class JavaTasks {
      * 2
      */
     static public void sortSequence(String inputName, String outputName) {
-        throw new NotImplementedError();
     }
 
     /**
@@ -148,6 +170,16 @@ public class JavaTasks {
      * Результат: second = [1 3 4 9 9 13 15 20 23 28]
      */
     static <T extends Comparable<T>> void mergeArrays(T[] first, T[] second) {
-        throw new NotImplementedError();
+        int leftIndex = 0;
+        int rightIndex = first.length;
+        for (int i = 0; i < second.length; i++) {
+            if (leftIndex < first.length && (rightIndex == second.length ||
+                    first[leftIndex].compareTo(second[rightIndex]) <= 0)) {
+                second[i] = first[leftIndex++];
+            }
+            else {
+                second[i] = second[rightIndex++];
+            }
+        }
     }
 }

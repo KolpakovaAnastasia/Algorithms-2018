@@ -3,7 +3,6 @@ package lesson1;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
-
 @SuppressWarnings("unused")
 public class JavaTasks {
     /**
@@ -85,7 +84,7 @@ public class JavaTasks {
      *
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortAddresses(String inputName, String outputName)  {throw new NotImplementedError();}
+    static public void sortAddresses(String inputName, String outputName)  {}
 
     /**
      * Сортировка температур
@@ -117,7 +116,7 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-    static public void sortTemperatures(String inputName, String outputName) { throw new NotImplementedError();
+    static public void sortTemperatures(String inputName, String outputName) {
     }
 
     /**
@@ -149,7 +148,7 @@ public class JavaTasks {
      * 2
      * 2
      */
-    static public void sortSequence(String inputName, String outputName) {  throw new NotImplementedError();
+    static public void sortSequence(String inputName, String outputName) {
     }
 
     /**

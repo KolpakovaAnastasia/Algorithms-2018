@@ -1,10 +1,8 @@
 package lesson2;
 
+import javafx.util.Pair;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.*;
-
+import java.util.Set;
 @SuppressWarnings("unused")
 public class JavaAlgorithms {
     /**
@@ -31,8 +29,9 @@ public class JavaAlgorithms {
      *
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) { throw new NotImplementedError(); }
-
+    static public Pair<Integer, Integer> optimizeBuyAndSell(String inputName) {
+       return null;
+    }
     /**
      * Задача Иосифа Флафия.
      * Простая
@@ -172,6 +171,5 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-    static public Set<String> baldaSearcher(String inputName, Set<String> words) { throw new NotImplementedError();
-    }
+    static public Set<String> baldaSearcher(String inputName, Set<String> words) { return null;}
 }

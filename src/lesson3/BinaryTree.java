@@ -1,4 +1,7 @@
 package lesson3;
+import kotlin.NotImplementedError;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -19,7 +22,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     }
 
     private Node<T> root = null;
-
+    private boolean lastChild;
     private int size = 0;
 
     @Override
@@ -60,12 +63,26 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Удаление элемента в дереве
      * Средняя
      */
+    //данная программа не работает, но оставила в ней то, что написала, чтобы работало остальное
     @Override
     public boolean remove(Object o) {
-        // TODO
-        throw new NotImplementedError();
+        Node<T> actual = root;
+        lastChild = true;
+        int match;
+        @SuppressWarnings("") T clue = (T) o;
+        while ((match = actual.value.compareTo(clue)) != 0) {
+            if (match > 0) {
+                lastChild = true;
+                actual = actual.left;
+            } else {
+                lastChild = false;
+                actual = actual.right;
+            }
+            if (actual == null)
+                return false;
+        }
+        return true;
     }
-
     @Override
     public boolean contains(Object o) {
         @SuppressWarnings("unchecked")
@@ -93,10 +110,62 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             return find(start.right, value);
         }
     }
+    private void delete(Node<T> actual, Node<T> parent) {
+        if (actual.left == null && actual.right == null) {
+            if (actual == root) {
+                root = null;
+            } else if (lastChild) {
+                parent.left = null;
+            } else
+                parent.right = null;
+
+        } else if (actual.right == null) {
+            if (actual == root) {
+                root = actual.left;
+            } else if (lastChild) {
+                parent.left = actual.left;
+            } else
+                parent.right = actual.left;
+
+        } else if (actual.left == null) {
+            if (actual == root) {
+                root = actual.right;
+            } else if (lastChild) {
+                parent.left = actual.right;
+            } else
+                parent.right = actual.right;
+        }
+     else {
+        Node substitution = getSubstitution(actual);
+        if (actual == root) {
+            root = substitution;
+        } else if (lastChild) {
+            parent.left = substitution;
+        } else
+            parent.right = substitution;
+        substitution.left = actual.left;
+    }
+}
+    private Node<T> getSubstitution(Node<T> changeNode) {
+        Node<T> subParent = changeNode;
+        Node<T> substitution = changeNode;
+        Node<T> actualNode = changeNode.right;
+        while (actualNode != null) {
+            subParent = substitution;
+            substitution = actualNode;
+            actualNode = actualNode.left;
+        }
+        if (substitution != changeNode.right) {
+            subParent.left = substitution.right;
+            substitution.right = changeNode.right;
+        }
+        return substitution;
+    }
+
 
     public class BinaryTreeIterator implements Iterator<T> {
-
-        private Node<T> current = null;
+        private LinkedList<Node<T>> list;
+        private Node<T> actual = null;
 
         private BinaryTreeIterator() {}
 
@@ -105,21 +174,26 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Средняя
          */
         private Node<T> findNext() {
-            // TODO
-            throw new NotImplementedError();
+            Node<T> next = list.getFirst();
+            list.removeFirst();
+            return next;
         }
 
         @Override
         public boolean hasNext() {
-            return findNext() != null;
+            return !list.isEmpty();
         }
 
         @Override
         public T next() {
-            current = findNext();
-            if (current == null) throw new NoSuchElementException();
-            return current.value;
+            actual = findNext();
+            while (actual.right != null) {
+                list.addFirst(actual.right);
+                actual.right = actual.right.left;
+            }
+            return actual.value;
         }
+
 
         /**
          * Удаление следующего элемента
@@ -127,8 +201,16 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          */
         @Override
         public void remove() {
-            // TODO
-            throw new NotImplementedError();
+            if (actual != null) {
+                Node<T> parent;
+                if (hasNext()) {
+                    parent = findNext();
+                } else {
+                    parent = find(last());
+                }
+                delete(actual, parent);
+                size--;
+            }
         }
     }
 
